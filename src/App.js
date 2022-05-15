@@ -10,7 +10,6 @@ function App() {
       .then((data) => {
         setColor(data);
         console.log(data);
-        console.log("sss", color.status);
       });
   }, []);
 
