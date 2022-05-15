@@ -1,22 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
+  const [color, setColor] = useState("");
+
+  useEffect(() => {
+    fetch("https://54.uz/rang.php")
+      .then((resolve) => resolve.json())
+      .then((data) => {
+        setColor(data);
+        console.log(data);
+        console.log("sss", color.status);
+      });
+  }, []);
+
+  let newColor = "";
+  switch (color.status) {
+    case "qora": {
+      newColor = "#000";
+      break;
+    }
+    case "qizil": {
+      newColor = "red";
+      break;
+    }
+    case "yaxshil": {
+      newColor = "green";
+      break;
+    }
+    case "ko'k": {
+      newColor = "blue";
+      break;
+    }
+    case "sariq": {
+      newColor = "yellow";
+      break;
+    }
+    case "oq": {
+      newColor = "#fff";
+      break;
+    }
+    default:
+      break;
+  }
+  console.log(newColor);
+
   return (
-    <div className="App">
+    <div className="App" style={{ background: `${newColor}` }}>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>{color.status}</h1>
+        <form>
+          <button type="submit">Chnage color</button>
+        </form>
       </header>
     </div>
   );
